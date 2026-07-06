@@ -55,7 +55,7 @@ function App() {
     formData.append("pdf", file);
 
     try {
-      await axios.post("http://localhost:5000/upload", formData);
+      await axios.post("https://pyq-backend-krnd.onrender.com", formData);
 
       alert("PYQ Uploaded Successfully!");
 
