@@ -9,9 +9,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Ensure uploads folder exists
+if (!fs.existsSync("uploads")) {
+  fs.mkdirSync("uploads");
+}
+
 app.use("/uploads", express.static("uploads"));
-import cors from "cors"
-app.use(cors({ origin: "*" }));
 
 const DATA_FILE = "./data.json";
 
@@ -20,7 +23,7 @@ if (!fs.existsSync(DATA_FILE)) {
   fs.writeFileSync(DATA_FILE, JSON.stringify([]));
 }
 
-// Multer storage
+// Multer storage configuration
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
@@ -37,10 +40,17 @@ app.get("/", (req, res) => {
   res.send("PYQ Backend Running");
 });
 
-// Upload route
+// Upload PDF
 app.post("/upload", upload.single("pdf"), (req, res) => {
   try {
     const { subject, branch, year, semester } = req.body;
+
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: "No PDF file uploaded",
+      });
+    }
 
     const pdfData = {
       id: Date.now(),
@@ -51,7 +61,7 @@ app.post("/upload", upload.single("pdf"), (req, res) => {
       pdf: req.file.filename,
     };
 
-    const papers = JSON.parse(fs.readFileSync(DATA_FILE));
+    const papers = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
 
     papers.push(pdfData);
 
@@ -72,7 +82,7 @@ app.post("/upload", upload.single("pdf"), (req, res) => {
 
 // Get all PDFs
 app.get("/pdfs", (req, res) => {
-  const papers = JSON.parse(fs.readFileSync(DATA_FILE));
+  const papers = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
   res.json(papers);
 });
 
@@ -80,7 +90,7 @@ app.get("/pdfs", (req, res) => {
 app.delete("/delete/:id", (req, res) => {
   const id = Number(req.params.id);
 
-  let papers = JSON.parse(fs.readFileSync(DATA_FILE));
+  let papers = JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
 
   const paper = papers.find((p) => p.id === id);
 
@@ -102,7 +112,8 @@ app.delete("/delete/:id", (req, res) => {
   });
 });
 
-const PORT = 5000;
+// Render requires process.env.PORT
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
