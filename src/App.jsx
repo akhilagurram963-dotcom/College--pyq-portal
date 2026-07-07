@@ -19,7 +19,7 @@ function App() {
 
   async function fetchPapers() {
     try {
-      const res = await axios.get("http://localhost:5000/pdfs");
+      const res = await axios.get("https://pyq-backend-krnd.onrender.com/pdfs");
       setPapers(res.data);
     } catch (err) {
       console.log(err);
@@ -27,7 +27,7 @@ function App() {
   }
    async function deletePaper(id) {
     try {
-    await axios.delete(`http://localhost:5000/delete/${id}`);
+    await axios.delete(`https://pyq-backend-krnd.onrender.com/${id}`);
 
     alert("PYQ Deleted Successfully!");
 
@@ -55,7 +55,7 @@ function App() {
     formData.append("pdf", file);
 
     try {
-      await axios.post("https://pyq-backend-krnd.onrender.com", formData);
+      await axios.post("https://pyq-backend-krnd.onrender.com/upload", formData);
 
       alert("PYQ Uploaded Successfully!");
 
@@ -147,7 +147,7 @@ function App() {
             <p><b>Semester:</b> {paper.semester}</p>
 
             <a
-              href={`http://localhost:5000/uploads/${paper.pdf}`}
+              href={`https://pyq-backend-krnd.onrender.com/uploads/${paper.pdf}`}
               target="_blank"
               rel="noreferrer"
             >
