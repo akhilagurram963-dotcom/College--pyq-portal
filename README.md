@@ -1,16 +1,39 @@
-# React + Vite
+# College Previous Year Question Paper Portal
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Overview
+A full-stack web application for managing Previous Year Question Papers (PYQs). Users can upload, search, view, and delete PDF question papers through a simple web interface.
 
-Currently, two official plugins are available:
+## 🚀 Features
+- Upload PDF question papers
+- Search papers by subject
+- View uploaded PDFs
+- Delete uploaded papers
+- Store paper details locally using data.json
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🛠️ Tech Stack
+- React.js
+- Node.js
+- Express.js
+- Axios
+- Multer
+- HTML
+- CSS
+- JavaScript
 
-## React Compiler
+## ▶️ How to Run
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Frontend
+bash
+npm install
+npm run dev
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Backend
+bash
+cd backend
+npm install
+node server.js
+
+
+## 📷 Project
+This project demonstrates a complete full-stack CRUD application using React and Node.js.
